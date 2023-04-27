@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+    webapp:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules
+        networks:
+            - trandung
+        ports:
+            - 4000:4000
+        env_file: .env
+    proxy:
+        restart: unless-stopped
+        image: nginx
+        ports:
+            - 80:80
+        depends_on:
+            - webapp
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - trandung
+networks:
+    trandung:
