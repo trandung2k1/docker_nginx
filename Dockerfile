@@ -6,4 +6,4 @@ COPY . /usr/src/app
 
 RUN yarn
 
-CMD [ "yarn", "dev" ]
+CMD [ "npm", "run", "dev" ]
